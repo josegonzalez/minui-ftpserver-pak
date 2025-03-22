@@ -18,15 +18,18 @@ build: $(foreach platform,$(PLATFORMS),bin/$(platform)/minui-list bin/$(platform
 
 bin/arm/ftpserver:
 	mkdir -p bin/arm
-	curl -f -o bin/arm/ftpserver -sSL https://github.com/fclairamb/ftpserver/releases/download/v$(FTPSERVER_VERSION)/ftpserver_$(FTPSERVER_VERSION)_linux_armv7.tar.gz
+	curl -f -sSL https://github.com/fclairamb/ftpserver/releases/download/v$(FTPSERVER_VERSION)/ftpserver_$(FTPSERVER_VERSION)_linux_armv7.tar.gz | tar -xzf - -C bin/arm
 	chmod +x bin/arm/ftpserver
-	curl -sSL -o bin/arm/ftpserver.LICENSE "https://raw.githubusercontent.com/fclairamb/ftpserver/refs/heads/$(FTPSERVER_VERSION)/LICENSE"
+	mv bin/arm/LICENSE bin/arm/ftpserver.LICENSE
+	rm bin/arm/README.md
 
 bin/arm64/ftpserver:
 	mkdir -p bin/arm64
-	curl -f -o bin/arm64/ftpserver -sSL https://github.com/fclairamb/ftpserver/releases/download/v$(FTPSERVER_VERSION)/ftpserver_$(FTPSERVER_VERSION)_linux_arm64.tar.gz
+	curl -f -sSL https://github.com/fclairamb/ftpserver/releases/download/v$(FTPSERVER_VERSION)/ftpserver_$(FTPSERVER_VERSION)_linux_arm64.tar.gz | tar -xzf - -C bin/arm64
 	chmod +x bin/arm64/ftpserver
-	curl -sSL -o bin/arm64/ftpserver.LICENSE "https://raw.githubusercontent.com/fclairamb/ftpserver/refs/heads/$(FTPSERVER_VERSION)/LICENSE"
+	mv bin/arm64/LICENSE bin/arm64/ftpserver.LICENSE
+	rm bin/arm64/README.md
+
 bin/arm/jq:
 	mkdir -p bin/arm
 	curl -f -o bin/arm/jq -sSL https://github.com/jqlang/jq/releases/download/jq-$(JQ_VERSION)/jq-linux-armhf
