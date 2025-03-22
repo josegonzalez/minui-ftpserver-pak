@@ -31,12 +31,15 @@ main() {
             "pass": "minui",
             "fs": "os",
             "params": {
-                "basePath": "$SDCARD_PATH"
+                "basePath": ""
             }
         }
     ]
 }
 EOF
+
+    jq --arg SDCARD_PATH "$SDCARD_PATH" '.accesses[0].params.basePath = $SDCARD_PATH' "$USERDATA_PATH/$PAK_NAME/ftpserver.json" >"$USERDATA_PATH/$PAK_NAME/ftpserver.json.tmp"
+    mv "$USERDATA_PATH/$PAK_NAME/ftpserver.json.tmp" "$USERDATA_PATH/$PAK_NAME/ftpserver.json"
 
     ftpserver -conf "$USERDATA_PATH/$PAK_NAME/ftpserver.json" >"$LOGS_PATH/$PAK_NAME.service.txt" 2>&1 &
 }
