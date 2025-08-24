@@ -6,7 +6,7 @@ PUSH_SDCARD_PATH ?= /mnt/SDCARD
 PUSH_PLATFORM ?= tg5040
 
 ARCHITECTURES := arm arm64
-PLATFORMS := rg35xxplus tg5040
+PLATFORMS := miyoomini my282 my355 rg35xxplus tg5040
 
 FTPSERVER_VERSION := 0.14.0
 JQ_VERSION ?= 1.7.1
@@ -54,12 +54,6 @@ bin/%/minui-presenter:
 	mkdir -p bin/$*
 	curl -f -o bin/$*/minui-presenter -sSL https://github.com/josegonzalez/minui-presenter/releases/download/$(MINUI_PRESENTER_VERSION)/minui-presenter-$*
 	chmod +x bin/$*/minui-presenter
-
-release: build
-	mkdir -p dist
-	git archive --format=zip --output "dist/$(PAK_NAME).pak.zip" HEAD
-	while IFS= read -r file; do zip -r "dist/$(PAK_NAME).pak.zip" "$$file"; done < .gitarchiveinclude
-	ls -lah dist
 
 release: build
 	mkdir -p dist
